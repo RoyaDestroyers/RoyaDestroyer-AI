@@ -17,6 +17,8 @@ def main() -> int:
     for image_path in unified_root.rglob("*"):
         if not image_path.is_file():
             continue
+        if image_path.suffix.lower() not in {".jpg", ".jpeg", ".png"}:
+            continue
         try:
             with Image.open(image_path) as image:
                 image.verify()

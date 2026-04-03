@@ -41,11 +41,12 @@ RoyaDestroyer-AI/
 2. Instalar dependencias desde `requirements.txt`
 3. Instalar el paquete en modo editable: `pip install -e .`
 4. Leer `scripts/download_instructions.md`
-5. Colocar datasets en `data/raw/`
+5. Descargar datasets en `data/raw/`
 6. Ejecutar:
 
 ```bash
 python scripts/verify_environment.py
+python scripts/download_datasets.py all
 python scripts/unify_datasets.py
 python scripts/verify_images.py
 python scripts/dedup.py

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import shutil
 from pathlib import Path
 
@@ -12,8 +13,11 @@ from royadestroyer_ai.config import load_settings
 MAPPINGS = {
     "jmuben": {
         "Rust": "roya_temprana",
+        "Leaf rust-20210326T083416Z-001/Leaf rust": "roya_temprana",
         "Cercospora": "cercospora",
+        "Cerscospora-20210326T085017Z-001/Cerscospora": "cercospora",
         "Phoma": "phoma",
+        "Phoma-20210326T082051Z-001/Phoma": "phoma",
         "Miner": "minador",
         "Healthy": "hoja_sana",
     },
@@ -22,7 +26,9 @@ MAPPINGS = {
         "Cercospora": "cercospora",
         "Phoma": "phoma",
         "Miner": "minador",
+        "Miner-20210326T082341Z-001/Miner": "minador",
         "Healthy": "hoja_sana",
+        "Healthy-20210326T083815Z-001/Healthy": "hoja_sana",
     },
     "clr_eafit": {
         "0": "hoja_sana",
@@ -40,8 +46,11 @@ MAPPINGS = {
     },
     "uganda": {
         "CLR": "roya_temprana",
+        "leaf rust": "roya_temprana",
         "Phoma": "phoma",
+        "phoma": "phoma",
         "Healthy": "hoja_sana",
+        "Health leaves": "hoja_sana",
     },
     "bracol": {
         "Rust": "roya_temprana",
@@ -57,6 +66,7 @@ MAPPINGS = {
 
 DATASET_ROOT_OVERRIDES = {
     "clr_eafit": "data",
+    "uganda": "coffee dataset",
 }
 
 
@@ -73,6 +83,10 @@ def copy_images(src_dir: Path, dst_dir: Path, prefix: str) -> int:
     return count
 
 
+def slugify(value: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "_", value.lower()).strip("_")
+
+
 def main() -> int:
     settings = load_settings()
     raw_root = settings.data_root / "raw"
@@ -82,6 +96,8 @@ def main() -> int:
         for path in unified_root.iterdir():
             if path.is_dir():
                 shutil.rmtree(path)
+            elif path.is_file():
+                path.unlink()
     unified_root.mkdir(parents=True, exist_ok=True)
 
     for dataset_name, class_map in MAPPINGS.items():
@@ -95,7 +111,8 @@ def main() -> int:
                 continue
             target_root = unified_root / target_class
             target_root.mkdir(parents=True, exist_ok=True)
-            copied = copy_images(source_root, target_root, dataset_name)
+            prefix = f"{dataset_name}_{slugify(source_class)}"
+            copied = copy_images(source_root, target_root, prefix)
             summary[target_class] = summary.get(target_class, 0) + copied
 
     report_path = settings.data_root / "reports" / "unify_summary.json"

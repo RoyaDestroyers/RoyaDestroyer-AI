@@ -1,6 +1,7 @@
 # Download Instructions
 
-La descarga se hace manualmente y luego los scripts procesan los datos localmente.
+La ruta recomendada ya no es manual. El repo incluye `scripts/download_datasets.py`
+para descargar y extraer los datasets publicos compatibles.
 
 ## Destinos esperados
 
@@ -22,6 +23,38 @@ La descarga se hace manualmente y luego los scripts procesan los datos localment
 4. RoCoLe
 5. Uganda
 6. Invalid images propias
+
+## Uso
+
+```bash
+python scripts/download_datasets.py jmuben jmuben2 bracol rocole uganda rust_miner_brazil
+python scripts/download_datasets.py clr_eafit
+```
+
+Si quieres bajar todo de una vez:
+
+```bash
+python scripts/download_datasets.py all
+```
+
+Opciones utiles:
+
+```bash
+python scripts/download_datasets.py all --no-extract
+```
+
+Los zips de Mendeley quedan en `data/raw/_archives/` y cada dataset se extrae
+en su carpeta correspondiente dentro de `data/raw/`.
+
+## Estado actual
+
+- `jmuben`: descargado y extraido
+- `jmuben2`: descargado y extraido
+- `clr_eafit`: clonado desde GitHub
+- `uganda`: descarga automatizada disponible, pero tarda por venir como miles de JPG pequenos
+- `rust_miner_brazil`: descarga automatizada disponible
+- `rocole`: descarga automatizada disponible; requiere tiempo por volumen de imagenes
+- `bracol`: el archivo publicado por Mendeley llega corrupto y queda marcado como error en `data/reports/download_manifest.json`
 
 ## Regla
 
