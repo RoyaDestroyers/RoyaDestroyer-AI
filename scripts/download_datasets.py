@@ -342,6 +342,8 @@ def main() -> int:
 
     manifest: dict[str, dict[str, object]] = {}
     errors: dict[str, str] = {}
+    manifest_path = settings.data_root / "reports" / "download_manifest.json"
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
 
     for spec in targets:
         dataset_root = raw_root / spec.name
@@ -371,9 +373,8 @@ def main() -> int:
                 "error": str(exc),
             }
             print(f"[error] {spec.name}: {exc}")
+        manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
-    manifest_path = settings.data_root / "reports" / "download_manifest.json"
-    manifest_path.parent.mkdir(parents=True, exist_ok=True)
     manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     print(f"Saved manifest to {manifest_path}")
     if errors:

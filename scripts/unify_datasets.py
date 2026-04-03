@@ -59,6 +59,10 @@ MAPPINGS = {
         "Cercospora Leaf Spot": "cercospora",
         "Healthy": "hoja_sana",
     },
+    "rust_miner_brazil": {
+        "rust_xml_image/rust_xml_image": "roya_temprana",
+        "miner_img_xml/miner_img_xml": "minador",
+    },
     "own_invalid": {
         "imagen_invalida": "imagen_invalida",
     },
