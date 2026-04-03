@@ -21,6 +21,7 @@ Clasificacion multiclase de imagenes de hojas de cafe con estas etiquetas:
 - `imagen_invalida`
 
 La inferencia corre solo en servidor. El frontend nunca ejecuta el modelo.
+El stack de entrenamiento e inferencia usa `PyTorch`.
 
 ## Estructura
 
@@ -57,3 +58,4 @@ python scripts/export_model.py
 
 ## Notas
 - El entrenamiento esta pensado para laptop local primero. Si la GPU no esta disponible, el baseline puede correr en CPU con lotes mas pequenos.
+- La priorizacion de negocio sobre roya se implementa con pesos por clase y monitoreo de recall por clase.

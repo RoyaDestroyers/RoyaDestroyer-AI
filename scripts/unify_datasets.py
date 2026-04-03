@@ -55,6 +55,10 @@ MAPPINGS = {
     },
 }
 
+DATASET_ROOT_OVERRIDES = {
+    "clr_eafit": "data",
+}
+
 
 def copy_images(src_dir: Path, dst_dir: Path, prefix: str) -> int:
     count = 0
@@ -82,6 +86,7 @@ def main() -> int:
 
     for dataset_name, class_map in MAPPINGS.items():
         dataset_root = raw_root / dataset_name
+        dataset_root = dataset_root / DATASET_ROOT_OVERRIDES.get(dataset_name, "")
         if not dataset_root.exists():
             continue
         for source_class, target_class in class_map.items():

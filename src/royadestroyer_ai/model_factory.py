@@ -1,21 +1,20 @@
 from __future__ import annotations
 
-import tensorflow as tf
+import timm
+import torch
+from torch import nn
 
 
-def build_model(image_size: int, num_classes: int) -> tf.keras.Model:
-    backbone = tf.keras.applications.MobileNetV3Large(
-        include_top=False,
-        input_shape=(image_size, image_size, 3),
-        weights="imagenet",
+def build_model(
+    num_classes: int,
+    model_name: str = "mobilenetv3_large_100",
+) -> nn.Module:
+    return timm.create_model(
+        model_name,
+        pretrained=True,
+        num_classes=num_classes,
     )
-    backbone.trainable = False
 
-    inputs = tf.keras.Input(shape=(image_size, image_size, 3))
-    x = backbone(inputs, training=False)
-    x = tf.keras.layers.GlobalAveragePooling2D()(x)
-    x = tf.keras.layers.Dropout(0.3)(x)
-    x = tf.keras.layers.Dense(256, activation="relu")(x)
-    outputs = tf.keras.layers.Dense(num_classes, activation="softmax")(x)
-    model = tf.keras.Model(inputs, outputs)
-    return model
+
+def resolve_device() -> torch.device:
+    return torch.device("cuda" if torch.cuda.is_available() else "cpu")

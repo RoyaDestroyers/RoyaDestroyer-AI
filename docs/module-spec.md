@@ -13,7 +13,7 @@ Resolver el flujo completo de IA para RoyaDestroyer:
 
 - clasificacion multiclase
 - inferencia solo en servidor
-- modelo base con transfer learning
+- modelo base con transfer learning en `PyTorch`
 - servicio HTTP interno
 
 ## Out of Scope v1

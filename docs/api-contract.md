@@ -15,6 +15,8 @@ Response:
 }
 ```
 
+El servicio carga checkpoints exportados desde `PyTorch`.
+
 ## Predict
 
 `POST /predict`
