@@ -8,6 +8,9 @@ Modulo de IA para RoyaDestroyer. Este repo interno contiene:
 - servicio de inferencia para ejecutar en servidor
 - documentacion tecnica de integracion con el backend principal
 
+Estado oficial de cierre de la v1:
+- ver `V1_READY.md`
+
 ## Alcance v1
 
 Clasificacion multiclase de imagenes de hojas de cafe con estas etiquetas:
