@@ -56,6 +56,4 @@ python scripts/export_model.py
 ```
 
 ## Notas
-
-- Este modulo fue creado dentro del repo documental principal por limitaciones de sandbox. Si luego quieres moverlo a un repo independiente, ya tiene la estructura para hacerlo.
 - El entrenamiento esta pensado para laptop local primero. Si la GPU no esta disponible, el baseline puede correr en CPU con lotes mas pequenos.
