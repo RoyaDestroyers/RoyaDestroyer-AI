@@ -11,11 +11,12 @@ Response:
   "status": "ok",
   "modelLoaded": true,
   "modelVersion": "roya-model-v1.0.0",
-  "classes": 7
+  "classes": 6
 }
 ```
 
 El servicio carga checkpoints exportados desde `PyTorch`.
+La v1 oficial usa 6 clases; `isInvalidImage` es una validación de servicio, no una séptima clase del modelo.
 
 ## Predict
 

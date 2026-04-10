@@ -75,7 +75,7 @@ class Predictor:
             "symptoms": enrichment["symptoms"],
             "recommendations": enrichment["recommendations"],
             "modelVersion": self.model_version,
-            "isInvalidImage": predicted_label == "imagen_invalida",
+            "isInvalidImage": False,
         }
 
     def health(self) -> dict:

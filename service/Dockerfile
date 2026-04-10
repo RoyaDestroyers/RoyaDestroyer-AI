@@ -2,8 +2,9 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY service/requirements-service.txt ./service/requirements-service.txt
+RUN pip install --no-cache-dir --extra-index-url https://download.pytorch.org/whl/cpu torch==2.7.1 torchvision==0.22.1
+RUN pip install --no-cache-dir -r ./service/requirements-service.txt
 
 COPY src ./src
 COPY service ./service

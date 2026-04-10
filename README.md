@@ -21,10 +21,17 @@ Clasificacion multiclase de imagenes de hojas de cafe con estas etiquetas:
 - `phoma`
 - `minador`
 - `hoja_sana`
-- `imagen_invalida`
 
 La inferencia corre solo en servidor. El frontend nunca ejecuta el modelo.
 El stack de entrenamiento e inferencia usa `PyTorch`.
+
+La v1 oficial del modelo esta cerrada con 6 clases. La validacion de imagen invalida se maneja como regla del servicio y no como clase de clasificacion principal.
+
+## CI/CD
+
+- Integracion continua: `.github/workflows/ci.yml`
+- Despliegue por SSH: `.github/workflows/deploy.yml`
+- Detalle de uso y secretos: `docs/ci-cd.md`
 
 ## Estructura
 

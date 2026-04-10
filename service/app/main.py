@@ -5,7 +5,7 @@ from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from service.app.predictor import PREDICTOR
 from service.app.schemas import HealthResponse, PredictResponse
 
-app = FastAPI(title="RoyaDestroyer AI Service", version="0.1.0")
+app = FastAPI(title="RoyaDestroyer AI Service", version="1.0.0")
 
 
 @app.get("/health", response_model=HealthResponse)
