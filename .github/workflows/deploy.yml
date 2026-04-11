@@ -25,14 +25,15 @@ jobs:
 
       - name: Deploy over SSH
         env:
-          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          DEPLOY_ROOT: ${{ secrets.DEPLOY_ROOT }}
+          STACK_ENV_FILE: ${{ secrets.STACK_ENV_FILE }}
         run: |
-          ssh "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" "bash -lc '
+          PORT="${SSH_PORT:-22}"
+          ssh -p "$PORT" "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" "bash -lc '
             set -euo pipefail
-            cd \"${DEPLOY_PATH}\"
-            git fetch --all --prune
-            git checkout main
-            git pull --ff-only origin main
-            docker compose up -d --build
-            docker compose ps
+            cd \"${DEPLOY_ROOT}/repos/roya-destroyers-backend\"
+            STACK_ENV_FILE=\"${STACK_ENV_FILE}\" \
+            STACK_BRANCH=main \
+            bash deploy/scripts/deploy-stack.sh
           '"
