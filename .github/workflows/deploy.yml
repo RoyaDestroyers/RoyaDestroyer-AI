@@ -21,7 +21,7 @@ jobs:
       - name: Add server to known hosts
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
+          ssh-keyscan -T 30 -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts || true
 
       - name: Deploy over SSH
         env:
@@ -30,7 +30,7 @@ jobs:
           STACK_ENV_FILE: ${{ secrets.STACK_ENV_FILE }}
         run: |
           PORT="${SSH_PORT:-22}"
-          ssh -p "$PORT" "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" "bash -lc '
+          ssh -o StrictHostKeyChecking=no -p "$PORT" "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" "bash -lc '
             set -euo pipefail
             cd \"${DEPLOY_ROOT}/repos/roya-destroyers-backend\"
             STACK_ENV_FILE=\"${STACK_ENV_FILE}\" \
