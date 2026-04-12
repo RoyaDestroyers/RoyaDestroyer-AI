@@ -20,8 +20,9 @@ async def predict(
     observaciones: str | None = Form(default=None),
 ) -> dict:
     del lote_id, observaciones
-    if not image.content_type or image.content_type not in {"image/jpeg", "image/png"}:
-        raise HTTPException(status_code=400, detail="Only JPEG and PNG are supported")
+    # Do NOT gate on content_type: iOS clients (CFNetwork) may declare
+    # application/octet-stream or image/heic even for JPEG payloads.
+    # PIL will reject unreadable bytes during inference instead.
     if not PREDICTOR.is_loaded:
         raise HTTPException(status_code=503, detail="Model is not loaded")
     payload = await image.read()
