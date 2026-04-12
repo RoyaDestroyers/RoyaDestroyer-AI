@@ -71,7 +71,7 @@ class Predictor:
             std  = float(arr.std())
             return mean < 15.0 or mean > 240.0 or std < 12.0
         except Exception:
-            return True  # unreadable payload → treat as invalid
+            return False  # unreadable format (e.g. HEIC) → let PIL in predict() handle it
 
     def predict(self, payload: bytes) -> dict:
         if self.model is None:

@@ -1,9 +1,13 @@
 from __future__ import annotations
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+import pillow_heif
 
 from service.app.predictor import PREDICTOR
 from service.app.schemas import HealthResponse, PredictResponse
+
+# Register HEIF/HEIC support so PIL.Image.open() handles iOS photos
+pillow_heif.register_heif_opener()
 
 app = FastAPI(title="RoyaDestroyer AI Service", version="1.0.0")
 
